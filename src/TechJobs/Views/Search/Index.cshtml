@@ -10,8 +10,8 @@
                 <input type="radio"
                        name="searchType"
                        id="@column.Key"
-                       value="@column.Key" 
-                       checked="@column.Key == 'all''"/>
+                       value="@column.Key"
+                       checked="@column.Key == 'all''" />
                 <label for="@column.Key">@column.Value</label>
             </span>
         }
@@ -27,10 +27,33 @@
 
 <hr />
 
-@if (ViewBag.jobs != null)
+@if (ViewBag.searchResults != null)
 {
 
-    <h3>@ViewBag.jobs.Count Result(s)</h3>
+    <h3>@ViewBag.searchResults.Count Result(s)</h3>
 
-    // TODO #2 - Loop over jobs dictionary and display all job fields 
-}
+    // TODO #2 - Loop over jobs dictionary and display all job fields
+    @if (ViewBag.searchResults.Count == 0)
+    {
+        <h4>There are no jobs available that match your search parameter.</h4>
+    }
+    else
+    {
+        @for (int x = 0; x < ViewBag.searchResults.Count; x++)
+        {
+            <table class="job-listing">
+                <tbody>
+                    @foreach (KeyValuePair<string, string> item in ViewBag.searchResults[x])
+                    {
+                        <tr>
+                            <td>@item.Key</td>
+                            <td>@item.Value</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    }
+
+}    

@@ -13,9 +13,9 @@ namespace TechJobs.Models
         public static List<Dictionary<string, string>> FindAll()
         {
             LoadData();
-
-            // Bonus mission: return a copy
-            return new List<Dictionary<string, string>>(AllJobs);
+            var allJobsCopy = new List<Dictionary<string, string>>(AllJobs); //Make a copy of the AllJobs list of dictionaries.
+                                                                             //If allJobsCopy gets altered, this will NOT affect the original data.
+            return allJobsCopy;
         }
 
         /*
@@ -38,7 +38,6 @@ namespace TechJobs.Models
                 }
             }
 
-            // Bonus mission: sort results alphabetically
             values.Sort();
             return values;
         }
