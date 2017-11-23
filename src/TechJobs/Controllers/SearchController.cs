@@ -22,9 +22,9 @@ namespace TechJobs.Controllers
             ViewBag.title = "Search Results";
             List<Dictionary<string, string>> searchResults;
 
-            if (searchType.ToLower().Equals("all"))
+            if (searchType.ToLower().Equals("all") && searchTerm == null)
             {
-                searchResults = JobData.FindByValue(searchTerm);
+                searchResults = JobData.FindAll();
                 ViewBag.searchResults = searchResults;
             }
             else
