@@ -15,7 +15,7 @@ namespace TechJobs.Models
             LoadData();
             var allJobsCopy = new List<Dictionary<string, string>>(AllJobs); //Make a copy of the AllJobs list of dictionaries.
                                                                              //If allJobsCopy gets altered, this will NOT affect the original data.
-            return allJobsCopy;
+            return AllJobs;
         }
 
         /*
@@ -85,6 +85,11 @@ namespace TechJobs.Models
             LoadData();
 
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+            if (value == null)
+            {
+                return jobs;
+            }
 
             foreach (Dictionary<string, string> row in AllJobs)
             {

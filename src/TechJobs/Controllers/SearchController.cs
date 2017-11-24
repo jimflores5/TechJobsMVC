@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using TechJobs.Models;
+using System.Globalization;
 
 namespace TechJobs.Controllers
 {
@@ -25,6 +26,11 @@ namespace TechJobs.Controllers
             if (searchType.ToLower().Equals("all") && searchTerm == null)
             {
                 searchResults = JobData.FindAll();
+                ViewBag.searchResults = searchResults;
+            }
+            else if (searchType.ToLower().Equals("all"))
+            {
+                searchResults = JobData.FindByValue(searchTerm);
                 ViewBag.searchResults = searchResults;
             }
             else
