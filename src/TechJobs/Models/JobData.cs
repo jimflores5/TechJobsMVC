@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Globalization;
 
 namespace TechJobs.Models
 {
@@ -27,10 +28,11 @@ namespace TechJobs.Models
             LoadData();
 
             List<string> values = new List<string>();
+            TextInfo option = new CultureInfo("en-US", false).TextInfo;
 
             foreach (Dictionary<string, string> job in AllJobs)
             {
-                string aValue = job[column];
+                string aValue = job[option.ToTitleCase(column)];
 
                 if (!values.Contains(aValue))
                 {
@@ -85,6 +87,7 @@ namespace TechJobs.Models
             LoadData();
 
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+            TextInfo option = new CultureInfo("en-US", false).TextInfo;
 
             if (value == null)
             {
@@ -93,7 +96,7 @@ namespace TechJobs.Models
 
             foreach (Dictionary<string, string> row in AllJobs)
             {
-                string aValue = row[column];
+                string aValue = row[option.ToTitleCase(column)];
 
                 if (aValue.ToLower().Contains(value.ToLower()))
                 {
@@ -116,6 +119,7 @@ namespace TechJobs.Models
             }
 
             List<string[]> rows = new List<string[]>();
+            TextInfo myTI = new CultureInfo("en-US", false).TextInfo;
 
             using (StreamReader reader = File.OpenText("Models/job_data.csv"))
             {
@@ -132,6 +136,11 @@ namespace TechJobs.Models
 
             string[] headers = rows[0];
             rows.Remove(headers);
+
+            for (int x = 0; x < headers.Length; x++) 
+            {
+                headers[x] = myTI.ToTitleCase(headers[x]);
+            }
 
             // Parse each row array into a more friendly Dictionary
             foreach (string[] row in rows)
